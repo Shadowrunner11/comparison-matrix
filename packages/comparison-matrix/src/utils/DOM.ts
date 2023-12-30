@@ -8,7 +8,7 @@ export function cloneHeader(dataClone = "header"){
   const container = document.createElement('div');
 
   container.append(...rowElements);
-  container.classList.add('static-header');
+  container.classList.add('static-header', 'hidden');
 
   document.body.append(container);
 }

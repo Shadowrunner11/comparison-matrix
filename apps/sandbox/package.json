@@ -5,12 +5,19 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "vite"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "comparison-matrix": "workspace:*",
     "freemarker": "^2.0.1"
+  },
+  "devDependencies": {
+    "tsc": "^2.0.4",
+    "vite": "^5.0.10",
+    "vite-plugin-run": "^0.5.1"
   }
 }

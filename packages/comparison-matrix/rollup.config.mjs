@@ -4,9 +4,13 @@ import typescript from '@rollup/plugin-typescript';
 export default defineConfig({
   input:['./src/index.ts'],
   external: ['swiper'],
-  plugins:[typescript()],
+  plugins:[typescript({exclude: ["src/**/**test.*"]})],
   output:[{
     format: 'umd',
-    dir: './dist'
+    file: './dist/index.umd.js',
+    name: 'comparisonMatrix'
+  }, {
+    format: 'esm',
+    file: './dist/index.esm.js',
   }]
 })
