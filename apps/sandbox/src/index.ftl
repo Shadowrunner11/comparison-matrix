@@ -1,0 +1,3 @@
+<section>
+  Hello ${message}
+</section>
