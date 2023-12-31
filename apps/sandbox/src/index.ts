@@ -19,8 +19,9 @@ import "./index.css";
 const isDev = import.meta.env.DEV;
 
 const getSlidesPerView = (): number | 'auto' => {
-  if (window.innerWidth >= 880) return 3;
-  if (window.innerWidth >= 680) return 2;
+  const width = Number(getComputedStyle(document.body).width.replace('px', ''))
+  if (width >= 880) return 3;
+  if (width >= 680) return 2;
 
   return "auto";
 };
