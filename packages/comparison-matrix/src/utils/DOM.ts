@@ -13,14 +13,47 @@ export function cloneHeader(dataClone = "header"){
   document.body.append(container);
 }
 
+export function resizeByRow(dataRow: string, node?: HTMLElement){
+  const rowElements = $$(`[data-row="${dataRow}"]`, node)
+ 
+  //TODO: Evaluate if should be piping map beacuse reduce is not pure
+  const maxHeight = rowElements
+    .reduce((maxHeight, element) => {
+      const newHeight = Number(getComputedStyle(element).height.replace('px', ''))
 
-export function resizeHeaderColumn(headerColumnId = 'header-column', tableBodyId = 'table-body'){
-  const heights = $$(`[data-table=${tableBodyId}] > *`)
-    .map(child => getComputedStyle(child).height)
+      return newHeight > maxHeight? newHeight: maxHeight
+    }, 0)
 
-  $$(`[data-table=${headerColumnId}] > *`)
-    .forEach((child, index)=> child.style.height = heights[index])  
+  rowElements.forEach(element => element.style.height = `${maxHeight}px`);
 }
+
+
+export function resizeAllRows(dataColumn = 'locked', node?: HTMLElement){
+  const dataRows = $$(`[data-column="${dataColumn}"] [data-row]`, node)
+    .map(element => element.getAttribute('data-row'))
+
+
+  dataRows.forEach(dataRow => resizeByRow(dataRow ?? '', node));
+}
+
+
+export function cleanResizedRow(dataRow: string, node?: HTMLElement){
+  const rowElements = $$(`[data-row="${dataRow}"]`, node);
+  rowElements.forEach(element => element.style.height = '');
+}
+
+export function cleanAllResizedRows(dataColumn = 'locked', node?: HTMLElement){
+  const dataRows = $$(`[data-column="${dataColumn}"] [data-row]`, node)
+    .map(element => element.getAttribute('data-row'))
+    
+
+  dataRows.forEach(dataRow => cleanResizedRow(dataRow ?? '', node));
+}
+
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+resizeAllRows.off = (_dataColumn?: string, _node?: HTMLElement)=>{}
+
 
 export enum IntersectionStatus{
   notEntered = 'NOT_ENTERED',

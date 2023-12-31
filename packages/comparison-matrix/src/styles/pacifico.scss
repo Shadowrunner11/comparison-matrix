@@ -1,0 +1,125 @@
+
+@import './utils.scss';
+
+.swiper-slide{
+  width: 80%;
+  @media only screen and (min-width: 425px) {
+    width: 100%;
+  }
+}
+
+@mixin basePadding{
+  padding-inline: 0.5rem;
+  padding-block: 1rem;
+}
+
+.table {
+  margin: auto;
+  color: $body;
+
+  p{
+    margin:0;
+  }
+
+  &__locked-column{
+    width: 9rem;
+    border: 1px solid $borderColor;
+    border-top-left-radius: 1.5rem;
+    border-bottom-left-radius: 1.5rem;
+    height: fit-content;
+    @media only screen and (min-width: 425px){
+      width: unset;
+      min-width: 10rem;
+    }
+
+    &__header{
+      padding-inline: 0.5rem;
+      padding-block: 1.5rem;
+      @extend .bolder;
+      @extend .center;
+    
+    }
+
+    &__cell{
+      @include basePadding;
+      @extend .bolder;
+      @extend .bg--ligth ;
+      border-block-start: 1px solid $borderColor;
+      &:last-child{
+        border-bottom-left-radius: 1.5rem;
+      }
+    }
+
+  }
+
+  &__cell{
+    min-height: 6rem;
+    @include basePadding;
+    @media only screen and (min-width: 768px){
+      min-height: 5rem;
+      padding-inline: 2rem;
+    }
+  }
+
+  &__products{
+    .swiper-slide{
+      border-right: 1px solid $borderColor;
+      border-bottom: 1px solid $borderColor;
+
+      &:first-child{
+        .price{
+          border-left: 1px solid $borderColor
+        }
+      }
+    }
+
+    .table__cell{
+      border-top: 1px solid $borderColor;
+    }
+    
+
+
+    &__header{
+      @extend .bg--ligth;
+
+      &__separation{
+        height: 2px;
+        background-color: $borderColor;
+        margin-block: 1rem;
+      }
+
+      &__currency-controls{
+        margin-block-start: 0.5rem;
+        display: flex;
+        gap: 0.5rem;
+      }
+    }
+  }
+
+}
+
+.price{
+  display: grid;
+  gap: 1rem;
+
+  strong{
+    font-size: 1.3em;
+  }
+
+  &__cta{
+    color: white;
+    background-color: $secondary;
+    width: fit-content;
+    border-radius: 1.5rem;
+    padding-block: 0.5rem;
+    padding-inline: 1.5rem;
+
+    &:hover{
+      transform: scale(0.96);
+    }
+
+    &:visited{
+      color: white;
+    }
+  }
+}

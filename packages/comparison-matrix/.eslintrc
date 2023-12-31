@@ -9,6 +9,7 @@
   ],
   "root":true,
   "rules": {
-    "complexity": "error"
+    "complexity": "error",
+    "no-console": "error"
   }
 }

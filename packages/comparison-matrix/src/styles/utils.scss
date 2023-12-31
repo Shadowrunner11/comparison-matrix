@@ -1,0 +1,56 @@
+.flex{
+  display: flex;
+}
+
+.g-1{
+  gap: 1rem;
+}
+
+
+.color--primary{
+  color: $primary;
+}
+
+
+.center {
+  display: grid;
+  place-items: center;
+}
+
+
+.text-1 {
+  font-size: 1.125rem;
+  font-weight: bolder;
+}
+
+
+
+.bg--ligth {
+  background-color: $light-bg;
+}
+
+
+.bolder {
+  font-weight: bolder;
+}
+
+
+.title--primary {
+  margin: auto;
+  text-align: center;
+  color: $primary;
+  padding-block: 2rem;
+  font-size: 2rem;
+}
+
+.hide, .hidden {
+  display: none;
+}
+
+
+
+@media only screen and (max-width: 880px){
+  .hide-on-680{
+    display: none;
+  }
+}

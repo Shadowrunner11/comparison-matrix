@@ -13,7 +13,8 @@
   "license": "ISC",
   "dependencies": {
     "comparison-matrix": "workspace:*",
-    "freemarker": "^2.0.1"
+    "freemarker": "^2.0.1",
+    "swiper": "^11.0.5"
   },
   "devDependencies": {
     "tsc": "^2.0.4",

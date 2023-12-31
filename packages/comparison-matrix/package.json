@@ -18,14 +18,18 @@
     "@typescript-eslint/eslint-plugin": "^6.16.0",
     "@typescript-eslint/parser": "^6.16.0",
     "@vitest/coverage-v8": "^1.1.0",
+    "autoprefixer": "^10.4.16",
     "eslint": "^8.56.0",
     "jsdom": "^23.0.1",
+    "postcss": "^8.4.32",
     "rollup": "^4.9.2",
+    "rollup-plugin-sass": "^1.12.21",
     "tslib": "^2.6.2",
     "typescript": "^5.3.3",
     "vitest": "^1.1.0"
   },
   "peerDependencies": {
     "swiper": "^11.0.5"
-  }
+  },
+  "browserslist":["last 5 version"]
 }
