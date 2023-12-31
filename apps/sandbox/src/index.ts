@@ -66,20 +66,28 @@ const fixedHeader = $('[data-id="fixed-header"]')
 const fixedColumn = $OrThrow('[data-column="locked"]')
 
 
-const [getStatus] = lenseIntersectionObserver(rowHeader, (status)=>{
-  if(status !== IntersectionStatus.entered){
-   return fixedHeader?.classList.remove('static-header--hidden')
-  }
 
-  fixedHeader?.classList.add('static-header--hidden')
-})
 
- lenseIntersectionObserver(fixedColumn, (status)=>{
+ const [getStatusFixedColumn] = lenseIntersectionObserver(fixedColumn, (status)=>{
+  console.log({fixedColumn: status})
+  if(status === IntersectionStatus.notEntered)
+    return 
   if(status !== IntersectionStatus.entered)
     return fixedHeader?.classList.add('static-header--hidden')
 
   if(getStatus().status !== IntersectionStatus.entered)
     fixedHeader?.classList.remove('static-header--hidden')
+})
+
+const [getStatus] = lenseIntersectionObserver(rowHeader, (status)=>{
+  console.log({rowHeader: status, })
+  if(status === IntersectionStatus.notEntered)
+    return 
+  if(status !== IntersectionStatus.entered && getStatusFixedColumn().status === IntersectionStatus.entered){
+   return fixedHeader?.classList.remove('static-header--hidden')
+  }
+
+  fixedHeader?.classList.add('static-header--hidden')
 })
 
 
