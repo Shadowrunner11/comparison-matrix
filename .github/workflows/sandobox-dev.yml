@@ -23,7 +23,7 @@ jobs:
           version: 8
           run_install: false
       - name: build lib
-        working-directory: packages/comparison
+        working-directory: packages/comparison-matrix
         run: |
           pnpm install
           pnpm build
