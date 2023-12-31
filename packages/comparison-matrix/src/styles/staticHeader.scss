@@ -1,0 +1,14 @@
+.static-header{
+  position: fixed;
+  transition: transform 0.6s ease-in-out;
+  display: flex;
+  width: 100%;
+  top: 0;
+  &--hidden{
+    transform: translateY(-16rem);
+  }
+
+  .table__locked-column__header{
+    background-color: white;
+  }
+}

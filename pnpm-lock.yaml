@@ -27,9 +27,9 @@ importers:
         specifier: ^11.0.5
         version: 11.0.5
     devDependencies:
-      tsc:
-        specifier: ^2.0.4
-        version: 2.0.4
+      typescript:
+        specifier: ^5.3.3
+        version: 5.3.3
       vite:
         specifier: ^5.0.10
         version: 5.0.10
@@ -2318,11 +2318,6 @@ packages:
       typescript: '>=4.2.0'
     dependencies:
       typescript: 5.3.3
-    dev: true
-
-  /tsc@2.0.4:
-    resolution: {integrity: sha512-fzoSieZI5KKJVBYGvwbVZs/J5za84f2lSTLPYf6AGiIf43tZ3GNrI1QzTLcjtyDDP4aLxd46RTZq1nQxe7+k5Q==}
-    hasBin: true
     dev: true
 
   /tslib@2.6.2:

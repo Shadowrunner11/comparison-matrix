@@ -15,6 +15,7 @@ export default {
       values: Array
         .from({length: 10})
         .map((_, valueIndex)=> ({
+          icon: 'check',
           valueSoles:`valor Producto-${productIndex} ${valueIndex} ${valueIndex === 0 && productIndex === 0? 'mas coasas para q se agrande para probar que se ajusta':''}`,
           valueDollars: valueIndex === 0 ? `valor dolares Producto-${productIndex} ${valueIndex}` : ''
         }))

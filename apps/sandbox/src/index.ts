@@ -1,52 +1,85 @@
-import { $, cleanAllResizedRows, cloneHeader, handleClickCurrency, resizeAllRows } from 'comparison-matrix'
-import Swiper from 'swiper'
+import {
+  $,
+  cleanAllResizedRows,
+  cloneHeader,
+  handleClickCurrency,
+  resizeAllRows,
+  lenseIntersectionObserver,
+  $OrThrow,
+  IntersectionStatus
+} from "comparison-matrix";
 
+import Swiper from "swiper";
 
-import { SwiperOptions } from 'swiper/types/swiper-options';
-
-import 'swiper/swiper-bundle.css'
-import 'comparison-matrix/dist/styles.css';
-import './index.css'
-
-
-cloneHeader('test');
+import "swiper/swiper-bundle.css";
+import "comparison-matrix/dist/styles.css";
+import "./index.css";
 
 //@ts-expect-error
-const isDev = import.meta.env.DEV
+const isDev = import.meta.env.DEV;
 
+const getSlidesPerView = (): number | 'auto' => {
+  if (window.innerWidth >= 880) return 3;
+  if (window.innerWidth >= 680) return 2;
 
-const getSlidesPerView = ()=>{
-  if(window.innerWidth>=880)
-    return 3;
-  if(window.innerWidth >= 680)
-    return 2;
+  return "auto";
+};
 
-  return 'auto';
-}
-
-
-const slidesDefaultConfig= ():  SwiperOptions =>({
+const slidesDefaultConfig = () => ({
   slidesPerView: getSlidesPerView(),
   centeredSlides: false,
   spaceBetween: 0,
-  grabCursor: true
-
-})
+  grabCursor: true,
+});
 
 let bodySwiper = new Swiper('[data-id="body-columns"]', slidesDefaultConfig());
+cloneHeader("test");
 
-if(isDev)
-  addEventListener('resize', ()=>{
+let staticHeaderSwiper = new Swiper(
+  '[data-id="swiper-fixed-header"]',
+  slidesDefaultConfig(),
+);
+
+if (isDev)
+  addEventListener("resize", () => {
     cleanAllResizedRows();
     resizeAllRows();
     bodySwiper.destroy();
-    bodySwiper = new Swiper('[data-id="body-columns"]', slidesDefaultConfig())
+    bodySwiper = new Swiper('[data-id="body-columns"]', slidesDefaultConfig());
+    staticHeaderSwiper.destroy();
+    staticHeaderSwiper = new Swiper(
+      '[data-id="swiper-fixed-header"]',
+      slidesDefaultConfig(),
+    );
   });
 
+resizeAllRows();
+
+const swiperTableBody = $OrThrow('[data-id="swiper-table-body"]');
+
+swiperTableBody.addEventListener("click", handleClickCurrency);
+
+const rowHeader = $OrThrow('[data-row="header"]')
+
+const fixedHeader = $('[data-id="fixed-header"]')
+
+const fixedColumn = $OrThrow('[data-column="locked"]')
 
 
-resizeAllRows()
+const [getStatus] = lenseIntersectionObserver(rowHeader, (status)=>{
+  if(status !== IntersectionStatus.entered){
+   return fixedHeader?.classList.remove('static-header--hidden')
+  }
 
-const swiperTableBody = $('[data-id="swiper-table-body"]');
+  fixedHeader?.classList.add('static-header--hidden')
+})
 
-swiperTableBody?.addEventListener('click', handleClickCurrency)
+ lenseIntersectionObserver(fixedColumn, (status)=>{
+  if(status !== IntersectionStatus.entered)
+    return fixedHeader?.classList.add('static-header--hidden')
+
+  if(getStatus().status !== IntersectionStatus.entered)
+    fixedHeader?.classList.remove('static-header--hidden')
+})
+
+

@@ -3,12 +3,45 @@ import { $$, $OrThrow } from "./selectors";
 // TODO: not pure functions, transform to purity or use classes
 export function cloneHeader(dataClone = "header"){
   const rowElements = $$(`[data-clone="${dataClone}"]`)
+
+  const swiperRowElements = rowElements
+    .filter(element=> element.parentElement?.classList.contains('swiper-slide'))
     .map(element => element.cloneNode(true))
+  
+  const swiper = document.createElement('div')
+  const swiperWrapper = document.createElement('div')
+
+  swiperWrapper.classList.add('swiper-wrapper');
+
+  swiperWrapper.append(...swiperRowElements.map(element =>{
+    const swiperSlide = document.createElement('div');
+    swiperSlide.classList.add('swiper-slide')
+    swiperSlide.append(element);
+
+    return swiperSlide;
+  }))
+
+  swiper.classList.add('swiper');
+
+  swiper.setAttribute('data-id', 'swiper-fixed-header');
+  swiper.append(swiperWrapper);
+
+
+  const lockedColumnElements = rowElements
+    .filter(element=> !element.parentElement?.classList.contains('swiper-slide'))
+    .map(element => element.cloneNode(true))
+
+  const lockedColumn = document.createElement('div')
+  lockedColumn.classList.add('table__locked-column')
+  lockedColumn.style.borderBottom = 'none'
+  lockedColumn.append(...lockedColumnElements)
 
   const container = document.createElement('div');
 
-  container.append(...rowElements);
-  container.classList.add('static-header', 'hidden');
+  container.append(lockedColumn, swiper);
+  container.classList.add('static-header', 'static-header--hidden', 'swiper');
+
+  container.setAttribute('data-id', 'fixed-header');
 
   document.body.append(container);
 }

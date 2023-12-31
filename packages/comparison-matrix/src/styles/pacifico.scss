@@ -1,5 +1,6 @@
 
 @import './utils.scss';
+@import './staticHeader.scss';
 
 .swiper-slide{
   width: 80%;
@@ -22,7 +23,7 @@
   }
 
   &__locked-column{
-    width: 9rem;
+    min-width: 6rem;
     border: 1px solid $borderColor;
     border-top-left-radius: 1.5rem;
     border-bottom-left-radius: 1.5rem;
@@ -71,6 +72,12 @@
           border-left: 1px solid $borderColor
         }
       }
+    }
+
+    &__cell{
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
     }
 
     .table__cell{
