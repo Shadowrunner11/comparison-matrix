@@ -18,6 +18,9 @@
     "swiper": "^11.0.5"
   },
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^6.16.0",
+    "@typescript-eslint/parser": "^6.16.0",
+    "eslint": "^8.56.0",
     "typescript": "^5.3.3",
     "vite": "^5.0.10",
     "vite-plugin-run": "^0.5.1"

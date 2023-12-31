@@ -10,12 +10,13 @@ import {
 } from "comparison-matrix";
 
 import Swiper from "swiper";
+import { Controller } from 'swiper/modules'
 
 import "swiper/swiper-bundle.css";
 import "comparison-matrix/dist/styles.css";
 import "./index.css";
 
-//@ts-expect-error
+//@ts-expect-error vite envs
 const isDev = import.meta.env.DEV;
 
 const getSlidesPerView = (): number | 'auto' => {
@@ -33,13 +34,23 @@ const slidesDefaultConfig = () => ({
   grabCursor: true,
 });
 
-let bodySwiper = new Swiper('[data-id="body-columns"]', slidesDefaultConfig());
+let bodySwiper = new Swiper('[data-id="body-columns"]', {
+  ...slidesDefaultConfig(),
+  modules: [Controller]
+});
+
 cloneHeader("test");
 
 let staticHeaderSwiper = new Swiper(
   '[data-id="swiper-fixed-header"]',
-  slidesDefaultConfig(),
+  {
+    modules: [Controller],
+    ...slidesDefaultConfig(),
+  },
 );
+
+bodySwiper.controller.control = staticHeaderSwiper
+staticHeaderSwiper.controller.control = bodySwiper
 
 if (isDev)
   addEventListener("resize", () => {
@@ -50,8 +61,16 @@ if (isDev)
     staticHeaderSwiper.destroy();
     staticHeaderSwiper = new Swiper(
       '[data-id="swiper-fixed-header"]',
-      slidesDefaultConfig(),
+      {
+        ...slidesDefaultConfig(),
+        controller:{
+          control: '[data-id="body-columns"]'
+        }
+      },
     );
+
+    bodySwiper.controller.control = staticHeaderSwiper
+    staticHeaderSwiper.controller.control = bodySwiper
   });
 
 resizeAllRows();
@@ -66,11 +85,7 @@ const fixedHeader = $('[data-id="fixed-header"]')
 
 const fixedColumn = $OrThrow('[data-column="locked"]')
 
-
-
-
- const [getStatusFixedColumn] = lenseIntersectionObserver(fixedColumn, (status)=>{
-  console.log({fixedColumn: status})
+const [getStatusFixedColumn] = lenseIntersectionObserver(fixedColumn, (status)=>{
   if(status === IntersectionStatus.notEntered)
     return 
   if(status !== IntersectionStatus.entered)
@@ -81,7 +96,6 @@ const fixedColumn = $OrThrow('[data-column="locked"]')
 })
 
 const [getStatus] = lenseIntersectionObserver(rowHeader, (status)=>{
-  console.log({rowHeader: status, })
   if(status === IntersectionStatus.notEntered)
     return 
   if(status !== IntersectionStatus.entered && getStatusFixedColumn().status === IntersectionStatus.entered){
