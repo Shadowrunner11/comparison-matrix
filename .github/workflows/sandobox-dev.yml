@@ -22,8 +22,13 @@ jobs:
         with:
           version: 8
           run_install: false
+      - name: build lib
+        working-directory: packages/comparison
+        run: |
+          pnpm install
+          pnpm build
       - name: Build
-        working-directory: apps/sandbox/src
+        working-directory: apps/sandbox
         run: |
           pnpm install
           pnpm build
