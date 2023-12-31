@@ -1,5 +1,14 @@
 .flex{
   display: flex;
+  &--vertical{
+    flex-direction: column;
+  }
+}
+
+.justify{
+  &--between{
+    justify-content: space-between;
+  }
 }
 
 .g-1{

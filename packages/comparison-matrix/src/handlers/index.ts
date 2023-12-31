@@ -1,4 +1,4 @@
-import { $$ } from "..";
+import { $$ } from "../utils";
 
 export function handleClickCurrency(this: HTMLElement, {target}: MouseEvent){
   const currency = (target as (HTMLElement | null))?.getAttribute('data-currency');

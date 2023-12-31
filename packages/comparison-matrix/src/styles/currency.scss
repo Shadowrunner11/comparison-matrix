@@ -1,0 +1,52 @@
+
+.currency-icon{
+  &--vibrate{
+    animation-name: vibrate;
+    animation-duration: 2.4s;
+    animation-iteration-count: infinite;
+    transform-origin: center;
+    animation-delay: 1s;
+  }
+}
+
+
+@keyframes vibrate{
+  0% {
+    transform: none;
+  }
+  24%{
+    transform: none;
+  }
+  25%{
+    transform: translateX(-1px)  rotateZ(2deg);
+    opacity: 1;
+  }
+  33% {
+    transform: translateX(1px) rotateZ(-2deg);
+    opacity: 0.85;
+  }
+  42% {
+    transform: translateX(-1px)  rotateZ(2deg);
+    opacity: 1;
+  }
+  51% {
+    transform: translateX(-1px) rotateZ(-2deg);
+    opacity: 0.85;
+  }
+  62% {
+    transform: translateX(-1px)  rotateZ(2deg);
+    opacity: 1;
+  }
+  73% {
+    transform: translateX(1px) rotateZ(-2deg);
+    opacity: 0.85;
+  }
+  82% {
+    transform: translateX(-1px)  rotateZ(2deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-1px)  rotateZ(5deg);
+    opacity: 1;
+  }
+}
