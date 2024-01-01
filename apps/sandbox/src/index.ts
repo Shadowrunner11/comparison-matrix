@@ -34,14 +34,17 @@ const slidesDefaultConfig = () => ({
   grabCursor: true,
 });
 
-let bodySwiper = new Swiper('[data-id="body-columns"]', {
+const createBodySwiper = ()=> new Swiper('[data-id="body-columns"]', {
   ...slidesDefaultConfig(),
   modules: [Controller]
 });
 
+let bodySwiper = createBodySwiper()
+
 cloneHeader("test");
 
-let staticHeaderSwiper = new Swiper(
+
+const createHeaderSwiper = ()=> new Swiper(
   '[data-id="swiper-fixed-header"]',
   {
     modules: [Controller],
@@ -49,30 +52,30 @@ let staticHeaderSwiper = new Swiper(
   },
 );
 
+
+// TODO: should encapsulate this , maybe a lense
+let staticHeaderSwiper = createHeaderSwiper()
+
 bodySwiper.controller.control = staticHeaderSwiper
 staticHeaderSwiper.controller.control = bodySwiper
 
+function recreateTable(){
+  bodySwiper.destroy();
+  staticHeaderSwiper.destroy();
+  staticHeaderSwiper = createHeaderSwiper()
+  bodySwiper = createBodySwiper();
+  
+  cleanAllResizedRows();
+  resizeAllRows();
+
+  bodySwiper.controller.control = staticHeaderSwiper
+  staticHeaderSwiper.controller.control = bodySwiper
+}
+
 if (isDev)
-  addEventListener("resize", () => {
-    cleanAllResizedRows();
-    resizeAllRows();
-    bodySwiper.destroy();
-    bodySwiper = new Swiper('[data-id="body-columns"]', slidesDefaultConfig());
-    staticHeaderSwiper.destroy();
-    staticHeaderSwiper = new Swiper(
-      '[data-id="swiper-fixed-header"]',
-      {
-        ...slidesDefaultConfig(),
-        controller:{
-          control: '[data-id="body-columns"]'
-        }
-      },
-    );
+  addEventListener("resize", recreateTable);
 
-    bodySwiper.controller.control = staticHeaderSwiper
-    staticHeaderSwiper.controller.control = bodySwiper
-  });
-
+addEventListener("deviceorientation", recreateTable)
 resizeAllRows();
 
 const swiperTableBody = $OrThrow('[data-id="swiper-table-body"]');

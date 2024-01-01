@@ -46,18 +46,25 @@ export function cloneHeader(dataClone = "header"){
   document.body.append(container);
 }
 
+export function getComputedHeight(element: HTMLElement){
+  return Number(getComputedStyle(element).height.replace('px', ''))
+}
+
 export function resizeByRow(dataRow: string, node?: HTMLElement){
   const rowElements = $$(`[data-row="${dataRow}"]`, node)
  
   //TODO: Evaluate if should be piping map beacuse reduce is not pure
   const maxHeight = rowElements
     .reduce((maxHeight, element) => {
-      const newHeight = Number(getComputedStyle(element).height.replace('px', ''))
+      const newHeight = getComputedHeight(element)
 
       return newHeight > maxHeight? newHeight: maxHeight
     }, 0)
 
-  rowElements.forEach(element => element.style.height = `${maxHeight}px`);
+  rowElements.forEach(element => {
+    if(getComputedHeight(element) < maxHeight)
+      element.style.height = `${maxHeight}px`
+  });
 }
 
 
