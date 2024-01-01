@@ -62,7 +62,9 @@ export function resizeByRow(dataRow: string, node?: HTMLElement){
     }, 0)
 
   rowElements.forEach(element => {
-    if(getComputedHeight(element) < maxHeight)
+    const height = getComputedHeight(element);
+
+    if(Number.isNaN(height) ||  height < maxHeight)
       element.style.height = `${maxHeight}px`
   });
 }

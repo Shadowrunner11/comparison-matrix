@@ -79,9 +79,9 @@ matchMedia("(min-width: 600px)").addEventListener('change', recreateTable)
 
 resizeAllRows();
 
-const swiperTableBody = $OrThrow('[data-id="swiper-table-body"]');
+//const swiperTableBody = $OrThrow('[data-id="swiper-table-body"]');
 
-swiperTableBody.addEventListener("click", handleClickCurrency);
+document.body.addEventListener("click", handleClickCurrency);
 
 const rowHeader = $OrThrow('[data-row="header"]')
 
