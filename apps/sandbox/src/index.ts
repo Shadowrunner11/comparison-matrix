@@ -75,7 +75,8 @@ function recreateTable(){
 if (isDev)
   addEventListener("resize", recreateTable);
 
-// addEventListener("deviceorientation", () =>{console.log('rotate');recreateTable()})
+matchMedia("(min-width: 600px)").addEventListener('change', recreateTable)
+
 resizeAllRows();
 
 const swiperTableBody = $OrThrow('[data-id="swiper-table-body"]');
