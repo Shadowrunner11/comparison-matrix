@@ -30,9 +30,12 @@ export default defineConfig([{
       options:{
         data: parseToSassVariables(designTokens)
       },
-      processor: css => postcss([autoprefixer()])
-        .process(css, {})
-        .then(result => result.css)
+      async processor(css){
+        const result = await postcss([autoprefixer()])
+          .process(css, {})
+
+        return result.css
+      } 
     })
   ],
   output:[{
