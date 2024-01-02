@@ -7,7 +7,7 @@
     <section class="vh-100">
     </section>
     <#include "./includes/comparisonMatrix.ftl"/>
-    <script type="module" src="./src/index.ts"></script>
+    <script type="module" src="./index.ts"></script>
     <section class="vh-100"></section>
   </body>
 </html>

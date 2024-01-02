@@ -1,6 +1,7 @@
 import { defineConfig } from 'rollup'
 import typescript from '@rollup/plugin-typescript';
 import sass from 'rollup-plugin-sass';
+import { dirname, join } from 'node:path'
 
 import autoprefixer from 'autoprefixer';
 import postcss from 'postcss';
@@ -8,8 +9,12 @@ import postcss from 'postcss';
 import designTokens from './designTokens.mjs';
 
 import { copyFile } from 'node:fs/promises'
+import { fileURLToPath } from 'node:url';
 
-await copyFile('./package.json', './dist/package.json')
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+await copyFile(join(__dirname,'package.json'), join(__dirname,'/dist/package.json'))
 
 export default defineConfig([{
   input:['./src/index.ts'],
