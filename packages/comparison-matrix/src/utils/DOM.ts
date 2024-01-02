@@ -50,7 +50,7 @@ export function getComputedHeight(element: HTMLElement){
   return Number(getComputedStyle(element).height.replace('px', ''))
 }
 
-export function resizeByRow(dataRow: string, node?: HTMLElement){
+export function resizeByRow(dataRow: string, isClean = false,  node?: HTMLElement){
   const rowElements = $$(`[data-row="${dataRow}"]`, node)
  
   //TODO: Evaluate if should be piping map beacuse reduce is not pure
@@ -64,18 +64,18 @@ export function resizeByRow(dataRow: string, node?: HTMLElement){
   rowElements.forEach(element => {
     const height = getComputedHeight(element);
 
-    if(Number.isNaN(height) ||  height < maxHeight)
+    if(!isClean || Number.isNaN(height) ||  height < maxHeight)
       element.style.height = `${maxHeight}px`
   });
 }
 
 
-export function resizeAllRows(dataColumn = 'locked', node?: HTMLElement){
+export function resizeAllRows(dataColumn = 'locked', isClean = false, node?: HTMLElement){
   const dataRows = $$(`[data-column="${dataColumn}"] [data-row]`, node)
     .map(element => element.getAttribute('data-row'))
 
 
-  dataRows.forEach(dataRow => resizeByRow(dataRow ?? '', node));
+  dataRows.forEach(dataRow => resizeByRow(dataRow ?? '', isClean, node));
 }
 
 

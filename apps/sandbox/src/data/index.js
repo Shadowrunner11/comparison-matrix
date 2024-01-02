@@ -6,11 +6,12 @@ export default {
   products:Array
     .from({length: 4})
     .map((_, productIndex, array)=>({
+      URL: "#",
       title: `Producto ${productIndex} </br> Otra linea ${productIndex === 0? 'Mas cosas para colmo':''}`,
       isSolesActive: productIndex !== array.length - 1,
       priceSoles: `<p>Desde </br> <strong>S/ ${productIndex}</strong> al mes</p>`,
       priceDollars:`<p>Desde </br> <strong>$ ${productIndex + 1}</strong> al mes</p>`,
-      cta: 'Cotizar',
+      ctaText: 'Cotizar',
       isDollarsActive: productIndex !== 0,
       values: Array
         .from({length: 10})

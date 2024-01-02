@@ -18,6 +18,8 @@ import "./index.css";
 
 //@ts-expect-error vite envs
 const isDev = import.meta.env.DEV;
+// eslint-disable-next-line no-console
+addEventListener('error', console.trace)
 
 const getSlidesPerView = (): number | 'auto' => {
   const width = Number(getComputedStyle(document.body).width.replace('px', ''))
@@ -108,5 +110,6 @@ const [getStatus] = lenseIntersectionObserver(rowHeader, (status)=>{
 
   fixedHeader?.classList.add('static-header--hidden')
 })
+
 
 
