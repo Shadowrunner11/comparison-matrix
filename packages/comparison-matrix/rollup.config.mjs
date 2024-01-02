@@ -14,12 +14,16 @@ import { fileURLToPath } from 'node:url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-await copyFile(join(__dirname,'package.json'), join(__dirname,'/dist/package.json'))
 
 export default defineConfig([{
   input:['./src/index.ts'],
   external: ['swiper'],
-  plugins:[
+  plugins:[{
+      name: 'closeBundle',
+      async closeBundle(){
+        await copyFile(join(__dirname,'package.json'), join(__dirname,'/dist/package.json'))
+      }
+    },
     typescript({exclude: ["src/**/**test.*"]}), 
     sass({
       output:'./dist/styles.css',
@@ -51,3 +55,6 @@ function parseToSassVariables(variables){
   return Object.entries(variables)
     .map(values => values.join(': ')).join(';') + ';'
 }
+
+
+
