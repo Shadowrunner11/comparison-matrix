@@ -23,14 +23,16 @@ export function handleClickCurrency(this: HTMLElement, {target}: MouseEvent){
 
   const buttons = $$(`button[data-currency][data-column="${column}"]`, this)
 
-  const buttonToPrimaryColor = buttons
-    .find(button => button.getAttribute('data-currency') !== currency)
+  const buttonsToPrimaryColor = buttons
+    .filter(button => button.getAttribute('data-currency') !== currency)
 
-  const buttonToGrayColor = buttons
-    .find(button  => button.getAttribute('data-currency') === currency)
+  const buttonsToGrayColor = buttons
+    .filter(button  => button.getAttribute('data-currency') === currency)
 
-  buttonToPrimaryColor?.classList.add('color--primary')
+  buttonsToPrimaryColor
+    .forEach(button => button.classList.add('color--primary'))
 
-  buttonToGrayColor?.classList.remove('color--primary') 
+  buttonsToGrayColor
+    .forEach(button => button.classList.remove('color--primary'))
 }
 

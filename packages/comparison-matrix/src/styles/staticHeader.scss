@@ -1,11 +1,15 @@
 .static-header{
   position: fixed;
-  transition: transform 0.6s ease-in-out;
+  transition: transform 0.3s ease-in-out;
   display: flex;
   width: 100%;
   top: 0;
   &--hidden{
     transform: translateY(-16rem);
+  }
+
+  .table__cell{
+    height: 100%;
   }
 
   .table__locked-column__header{
