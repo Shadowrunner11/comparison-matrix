@@ -7,6 +7,10 @@ import postcss from 'postcss';
 
 import designTokens from './designTokens.mjs';
 
+import { copyFile } from 'node:fs/promises'
+
+await copyFile('./package.json', './dist/package.json')
+
 export default defineConfig([{
   input:['./src/index.ts'],
   external: ['swiper'],
