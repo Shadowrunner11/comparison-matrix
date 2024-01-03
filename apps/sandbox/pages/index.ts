@@ -6,7 +6,8 @@ import {
   resizeAllRows,
   lenseIntersectionObserver,
   $OrThrow,
-  IntersectionStatus
+  IntersectionStatus,
+  $$
 } from "comparison-matrix";
 
 import Swiper from "swiper";
@@ -42,6 +43,8 @@ const createBodySwiper = ()=> new Swiper('[data-id="body-columns"]', {
 let bodySwiper = createBodySwiper()
 
 cloneHeader("test");
+
+
 
 
 const createHeaderSwiper = ()=> new Swiper(
@@ -110,3 +113,68 @@ const [getStatus] = lenseIntersectionObserver(rowHeader, (status)=>{
 })
 
 
+// TODO: change this a to a lense
+
+const controls = $OrThrow('.controls')
+
+const resolveControlsContainerSize = ()=>{
+  controls.style.width = getComputedStyle($OrThrow('[data-id="body-columns"]')).width;
+}
+
+resolveControlsContainerSize()
+
+const changeControls = (node: HTMLElement)=>{
+  const buttons = $$('button', node)
+  const prevButtons = buttons.filter(element => element.getAttribute('data-action')==='prev');
+  const nextButtons = buttons.filter(element => element.getAttribute('data-action')==='next')
+
+  if(bodySwiper.isEnd || bodySwiper.slides.length <= 3){
+    prevButtons.forEach(button =>button.classList.add('color--primary'))
+    nextButtons.forEach(button =>button.classList.remove('color--primary'))
+  }
+
+  if(bodySwiper.isBeginning){
+    nextButtons.forEach(button =>button.classList.add('color--primary'))
+    prevButtons.forEach(button =>button.classList.remove('color--primary'))
+  }
+}
+
+changeControls(document.body);
+
+controls.addEventListener('click', function({target}){
+  if(!(target instanceof HTMLElement))
+    return 
+
+  const action = target.getAttribute('data-action');
+
+  if(!action)
+    return
+
+  switch(action){
+    case "next":{
+      bodySwiper.slideNext()
+      break;
+    }
+    case "prev":{
+      bodySwiper.slidePrev();
+      break;
+    }
+    default:
+      throw new Error('not supported action')
+  }
+
+  changeControls(this)
+
+})
+
+
+
+if (isDev)
+  addEventListener("resize", resolveControlsContainerSize);
+
+matchMedia("(min-width: 600px)").addEventListener('change', resolveControlsContainerSize)
+
+
+bodySwiper.on('progress', ()=>{
+  changeControls(document.body)
+})

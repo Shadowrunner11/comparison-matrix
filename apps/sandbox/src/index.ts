@@ -111,5 +111,3 @@ const [getStatus] = lenseIntersectionObserver(rowHeader, (status)=>{
   fixedHeader?.classList.add('static-header--hidden')
 })
 
-
-

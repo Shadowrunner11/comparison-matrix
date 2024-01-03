@@ -7,17 +7,18 @@ const isDev = process.env.NODE_ENV === 'development'
 const devPlugins = [run([{
   name: 'parse ftl',
   run: ['node', 'src/server/index.js'],
-  pattern: ['../src/**/*.ftl']
+  pattern: ['**/*.ftl']
 }])]
 
 const plugins = []
 
-if(isDev)
+if(isDev){
   plugins.push(...devPlugins)
+}
 
 export default defineConfig({
   base: './',
-  root: 'pages',
+  ...(isDev? {}: {root: 'pages'}),
   plugins,
   build:{
     emptyOutDir: true,
