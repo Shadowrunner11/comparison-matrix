@@ -117,11 +117,11 @@ const [getStatus] = lenseIntersectionObserver(rowHeader, (status)=>{
 
 const controls = $OrThrow('.controls')
 
-const resolveControlsContainerSize = ()=>{
-  controls.style.width = getComputedStyle($OrThrow('[data-id="body-columns"]')).width;
-}
+// const resolveControlsContainerSize = ()=>{
+//   controls.style.width = getComputedStyle($OrThrow('[data-id="body-columns"]')).width;
+// }
 
-resolveControlsContainerSize()
+// resolveControlsContainerSize()
 
 const changeControls = (node: HTMLElement)=>{
   const buttons = $$('button', node)
@@ -169,10 +169,10 @@ controls.addEventListener('click', function({target}){
 
 
 
-if (isDev)
-  addEventListener("resize", resolveControlsContainerSize);
+// if (isDev)
+//   addEventListener("resize", resolveControlsContainerSize);
 
-matchMedia("(min-width: 600px)").addEventListener('change', resolveControlsContainerSize)
+// matchMedia("(min-width: 600px)").addEventListener('change', resolveControlsContainerSize)
 
 
 bodySwiper.on('progress', ()=>{
