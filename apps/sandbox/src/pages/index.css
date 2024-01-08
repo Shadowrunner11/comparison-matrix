@@ -1,0 +1,22 @@
+
+.vh-100{
+  min-height: 100vh;
+}
+
+body{
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+
+.controls{
+  margin-inline-start: auto;
+  padding-inline: 0.25rem;
+  display: none;
+}
+
+
+@media only screen and (min-width: 520px){
+  .controls{
+    display: flex;
+  }
+}
