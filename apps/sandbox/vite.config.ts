@@ -1,13 +1,14 @@
 import { defineConfig } from 'vite'
 import { run } from 'vite-plugin-run'
-import { globSync } from 'glob'
-
+import { createView } from './ftlServer'
 const isDev = process.env.NODE_ENV === 'development'
 
 const devPlugins = [run([{
   name: 'parse ftl',
-  run: ['node', 'src/server/index.js'],
-  pattern: ['**/*.ftl']
+  pattern: ['**/*.ftl'],
+  onFileChanged({file}){
+    createView(file)
+  }
 }])]
 
 const plugins = []
@@ -18,13 +19,5 @@ if(isDev){
 
 export default defineConfig({
   base: './',
-  ...(isDev? {}: {root: 'pages'}),
   plugins,
-  build:{
-    emptyOutDir: true,
-    rollupOptions:{
-      input: globSync('**/*.html', {ignore: ['node_modules', 'dist']}),
-    },
-    outDir: '../dist'
-  },
 })
